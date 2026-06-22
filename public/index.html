@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TechLink Network MVP</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">TL</div><div><b>TechLink</b><span>Network MVP</span></div></div>
+      <button class="nav active" data-view="publisher">Publisher Dashboard</button>
+      <button class="nav" data-view="technician">Technician Dashboard</button>
+      <button class="nav" data-view="admin">Admin Dashboard</button>
+      <div class="side-note">B2B lead-sharing marketplace for service technicians and publishers.</div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Publisher Dashboard</h1>
+          <p>Search technicians by area, send leads, and track accepted jobs.</p>
+        </div>
+        <div class="pill">MVP Build</div>
+      </header>
+
+      <section id="publisher" class="view active">
+        <div class="grid two">
+          <div class="card">
+            <h2>Find Technicians</h2>
+            <div class="filters">
+              <input id="searchZip" placeholder="Search ZIP / city / state" />
+              <select id="searchCategory">
+                <option value="">All categories</option>
+                <option>Garage Doors</option><option>Gates</option><option>Locksmith</option><option>HVAC</option><option>Plumbing</option>
+              </select>
+            </div>
+            <div id="map"></div>
+          </div>
+          <div class="card">
+            <h2>Matching Technicians</h2>
+            <div id="techResults" class="list"></div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <h2>Create Lead Request</h2>
+            <form id="leadForm" class="form">
+              <div class="row"><select name="service" required><option>Garage Doors</option><option>Gates</option><option>Locksmith</option><option>HVAC</option><option>Plumbing</option></select><input name="jobType" placeholder="Job type: Broken Spring" required /></div>
+              <div class="row"><input name="city" placeholder="City" required /><input name="state" placeholder="State" required /></div>
+              <div class="row"><input name="zip" placeholder="Lead ZIP code" required /><select name="urgency"><option>Scheduled</option><option>Emergency</option><option>Same Day</option><option>Flexible</option></select></div>
+              <div class="row"><input name="scheduledDate" type="date" required /><input name="scheduledTime" placeholder="10:00 AM - 12:00 PM" required /></div>
+              <div class="row"><input name="customerName" placeholder="Customer name" required /><input name="customerPhone" placeholder="Customer phone" required /></div>
+              <input name="customerAddress" placeholder="Customer full address" required />
+              <textarea name="notes" placeholder="Notes for technician"></textarea>
+              <button class="primary" type="submit">Create Lead</button>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Lead History</h2>
+            <div id="publisherLeads" class="list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="technician" class="view">
+        <div class="grid two">
+          <div class="card">
+            <h2>Technician Lead Inbox</h2>
+            <select id="techSelect"></select>
+            <div id="leadInbox" class="list"></div>
+          </div>
+          <div class="card">
+            <h2>Accepted Jobs</h2>
+            <div id="acceptedJobs" class="list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="admin" class="view">
+        <div class="stats" id="stats"></div>
+        <div class="grid two">
+          <div class="card">
+            <h2>Add Technician</h2>
+            <form id="techForm" class="form">
+              <div class="row"><input name="company" placeholder="Company name" required /><input name="contact" placeholder="Contact name" required /></div>
+              <div class="row"><input name="phone" placeholder="Phone" /><input name="email" placeholder="Email" /></div>
+              <div class="row"><input name="city" placeholder="City" /><input name="state" placeholder="State" /></div>
+              <input name="categories" placeholder="Categories comma separated: Garage Doors, Gates" />
+              <input name="zips" placeholder="ZIPs comma separated: 11223, 11214" />
+              <input name="hours" placeholder="Working hours" />
+              <textarea name="description" placeholder="Description"></textarea>
+              <button class="primary" type="submit">Add Technician</button>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Platform Activity</h2>
+            <div id="adminActivity" class="list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
