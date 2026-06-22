@@ -1,5 +1,17 @@
 let db = { technicians: [], leads: [], publishers: [] };
 let map, layers = [];
+
+const HOME_SERVICE_CATEGORIES = [
+  'Garage Doors','Gates','Locksmith','HVAC','Air Duct Cleaning','Dryer Vent Cleaning','Plumbing','Electrical','Roofing','Appliance Repair','Pest Control','Handyman','Painting','Flooring','Windows & Doors','Glass & Mirrors','Masonry & Concrete','Landscaping','Tree Service','Irrigation & Sprinklers','Pool Service','Junk Removal','Moving','Cleaning Services','Carpet Cleaning','Water Damage Restoration','Mold Remediation','Fire Damage Restoration','Chimney & Fireplace','Security Cameras','Smart Home','Solar','Fencing','Decks & Patios','Siding','Gutter Cleaning','Pressure Washing','Septic','Excavation','General Contractor'
+];
+function populateCategories(){
+  const search = $('searchCategory');
+  const lead = $('leadService');
+  const tech = $('techCategoryPreset');
+  if(search && search.options.length <= 1){ HOME_SERVICE_CATEGORIES.forEach(c=>search.add(new Option(c,c))); }
+  if(lead && !lead.options.length){ HOME_SERVICE_CATEGORIES.forEach(c=>lead.add(new Option(c,c))); }
+  if(tech && !tech.options.length){ HOME_SERVICE_CATEGORIES.forEach(c=>tech.add(new Option(c,c))); }
+}
 const $ = (id) => document.getElementById(id);
 
 async function api(path, options={}) {
@@ -102,8 +114,9 @@ function renderAdmin(){
 }
 function renderAll(){ renderTechSelect(); renderTechResults(); renderPublisherLeads(); renderTechnicianDashboard(); renderAdmin(); }
 function initForms(){
+  populateCategories();
   $('searchZip').addEventListener('input', renderTechResults); $('searchCategory').addEventListener('change', renderTechResults);
   $('leadForm').addEventListener('submit', async e=>{ e.preventDefault(); const data=Object.fromEntries(new FormData(e.target)); await api('/api/leads',{method:'POST', body:JSON.stringify(data)}); e.target.reset(); await load(); });
-  $('techForm').addEventListener('submit', async e=>{ e.preventDefault(); const data=Object.fromEntries(new FormData(e.target)); data.emergency=true; await api('/api/technicians',{method:'POST', body:JSON.stringify(data)}); e.target.reset(); await load(); });
+  $('techForm').addEventListener('submit', async e=>{ e.preventDefault(); const data=Object.fromEntries(new FormData(e.target)); data.emergency=true; const cats=[data.categories, data.categoriesExtra].filter(Boolean).join(','); data.categories=cats; delete data.categoriesExtra; await api('/api/technicians',{method:'POST', body:JSON.stringify(data)}); e.target.reset(); await load(); });
 }
 window.addEventListener('load', async()=>{ initNav(); initMap(); initForms(); await load(); });

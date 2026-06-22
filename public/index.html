@@ -32,10 +32,7 @@
             <h2>Find Technicians</h2>
             <div class="filters">
               <input id="searchZip" placeholder="Search ZIP / city / state" />
-              <select id="searchCategory">
-                <option value="">All categories</option>
-                <option>Garage Doors</option><option>Gates</option><option>Locksmith</option><option>HVAC</option><option>Plumbing</option>
-              </select>
+              <select id="searchCategory"><option value="">All categories</option></select>
             </div>
             <div id="map"></div>
           </div>
@@ -49,7 +46,7 @@
           <div class="card">
             <h2>Create Lead Request</h2>
             <form id="leadForm" class="form">
-              <div class="row"><select name="service" required><option>Garage Doors</option><option>Gates</option><option>Locksmith</option><option>HVAC</option><option>Plumbing</option></select><input name="jobType" placeholder="Job type: Broken Spring" required /></div>
+              <div class="row"><select name="service" id="leadService" required></select><input name="jobType" placeholder="Job type: Broken Spring" required /></div>
               <div class="row"><input name="city" placeholder="City" required /><input name="state" placeholder="State" required /></div>
               <div class="row"><input name="zip" placeholder="Lead ZIP code" required /><select name="urgency"><option>Scheduled</option><option>Emergency</option><option>Same Day</option><option>Flexible</option></select></div>
               <div class="row"><input name="scheduledDate" type="date" required /><input name="scheduledTime" placeholder="10:00 AM - 12:00 PM" required /></div>
@@ -89,7 +86,7 @@
               <div class="row"><input name="company" placeholder="Company name" required /><input name="contact" placeholder="Contact name" required /></div>
               <div class="row"><input name="phone" placeholder="Phone" /><input name="email" placeholder="Email" /></div>
               <div class="row"><input name="city" placeholder="City" /><input name="state" placeholder="State" /></div>
-              <input name="categories" placeholder="Categories comma separated: Garage Doors, Gates" />
+              <select name="categories" id="techCategoryPreset"></select><input name="categoriesExtra" placeholder="Additional categories comma separated (optional)" />
               <input name="zips" placeholder="ZIPs comma separated: 11223, 11214" />
               <input name="hours" placeholder="Working hours" />
               <textarea name="description" placeholder="Description"></textarea>
